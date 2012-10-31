@@ -1,0 +1,26 @@
+<%= form_for @brand, :html => { :class => 'form-horizontal' ,:multipart => true } do |f| %>
+  <div class="control-group">
+    <%= f.label :name, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :name, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :description, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_area :description, :class => 'text_area' ,:cols=>25 ,:rows=>5 %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :logo, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.file_field :logo %>
+    </div>
+  </div>
+  
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                brands_path, :class => 'btn' %>
+  </div>
+<% end %>
