@@ -64,8 +64,45 @@
           </div><!--/.nav-collapse -->
         </div>
       </div>
+    </div>   
+    <br /><br />
+    <div class="navbar">
+      <div class="navbar-inner">
+        <a class="brand" href="#">&nbsp;&nbsp;</a>
+        <ul class="nav .nav-pills">
+          <li class="active"><a href="#">Home</a></li>
+          <% Category.where(:parent_id => nil).all.each do |category|  %>     
+          <li class="dropdown">
+            <%#= link_to category.name ,category_path(category) %>
+            <a class="dropdown-toggle"
+               data-toggle="dropdown"
+               href="/categories/<%=category.id%>">
+                <%= category.name %>               
+              </a>
+            <ul class="dropdown-menu">
+              <% Category.find_all_by_parent_id(category.id).each do |sub_cat| %>
+                <li class="dropdown-submenu">
+                  <%=link_to sub_cat.name , category_path(sub_cat) %>
+                    <ul class="dropdown-menu">
+                      <% Brand.all.sort.each do |brand| %>
+                      <li><%=link_to brand.name ,brands_path %></li>
+                      <%end%>
+                    </ul>
+                </li>
+              <%end%>              
+            </ul>   
+
+          </li>
+          <% end %>  
+          <li class="dropdown">
+          </li>      
+        </ul>
+      </div>
     </div>
-    <br /><br /><br />
+    </center>
+
+
+
     <div class="container">
         <div class="row">
           <div class="span9">          	
@@ -92,7 +129,8 @@
       </footer>
 
     </div> <!-- /container -->
-
+   
+    </div>
     <!-- Javascripts
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

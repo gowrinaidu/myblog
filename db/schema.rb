@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121031134718) do
+ActiveRecord::Schema.define(:version => 20121101095202) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -59,6 +59,11 @@ ActiveRecord::Schema.define(:version => 20121031134718) do
 
   add_index "brands", ["name"], :name => "index_brands_on_name"
 
+  create_table "brands_categories", :id => false, :force => true do |t|
+    t.integer "brand_id"
+    t.integer "category_id"
+  end
+
   create_table "categories", :force => true do |t|
     t.string   "name"
     t.integer  "parent_id"
@@ -71,6 +76,30 @@ ActiveRecord::Schema.define(:version => 20121031134718) do
   end
 
   add_index "categories", ["name"], :name => "index_categories_on_name"
+
+  create_table "images", :force => true do |t|
+    t.integer  "product_id"
+    t.string   "name"
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
+  create_table "products", :force => true do |t|
+    t.integer  "category_id"
+    t.integer  "user_id"
+    t.integer  "brand_id"
+    t.string   "name"
+    t.decimal  "price",       :precision => 7, :scale => 2
+    t.boolean  "active",                                    :default => false
+    t.text     "features"
+    t.text     "description"
+    t.datetime "created_at",                                                   :null => false
+    t.datetime "updated_at",                                                   :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false

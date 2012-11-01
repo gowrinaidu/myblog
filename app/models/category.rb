@@ -1,9 +1,9 @@
 class Category < ActiveRecord::Base
-  attr_accessible :depth, :description,:name, :parent_id
-  attr_protected :lft, :rgt
+  attr_accessible :description,:name, :parent_id
+  #attr_protected :lft, :rgt
   
-  #acts_as_nested_set
-  
+  acts_as_nested_set
+  #accepts_nested_attributes_for :brands, allow_destroy: true
   validates :name, :presence => true
   
   def self.nested_dropdown

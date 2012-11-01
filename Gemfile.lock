@@ -45,6 +45,8 @@ GEM
     arel (3.0.2)
     awesome_nested_fields (0.6.0)
       rails (>= 3.0.0)
+    awesome_nested_set (2.1.5)
+      activerecord (>= 3.0.0)
     bcrypt-ruby (3.0.1)
     bourbon (2.1.1)
       sass (>= 3.1)
@@ -198,6 +200,7 @@ PLATFORMS
 DEPENDENCIES
   activeadmin
   awesome_nested_fields
+  awesome_nested_set
   coffee-rails (~> 3.2.1)
   devise
   execjs

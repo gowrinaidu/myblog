@@ -43,3 +43,4 @@ gem "twitter-bootstrap-rails"
 gem 'activeadmin' 
 gem 'awesome_nested_fields'
 gem "paperclip"#, "~> 3.0"  
+gem 'awesome_nested_set'

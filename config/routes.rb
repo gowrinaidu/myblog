@@ -22,6 +22,9 @@ Blog::Application.routes.draw do
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   resources :users
   resources :brands
+  resources :categories
+  resources :products
+  resources :images
 
   # Sample resource route with options:
   #   resources :products do

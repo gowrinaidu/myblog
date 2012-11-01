@@ -6,6 +6,16 @@
     </div>
   </div>
   <div class="control-group">
+    <%= f.label :categories, :class => 'control-label' %>
+    <div class="controls">
+     <% Category.where(:parent_id=>nil).all.each do |i| %>
+      <label class="checkbox inline">
+        <%= check_box_tag "brand[category_ids][]", i.id %><%= i.name %>
+      </label>
+     <% end %>
+    </div>
+  </div>
+  <div class="control-group">
     <%= f.label :description, :class => 'control-label' %>
     <div class="controls">
       <%= f.text_area :description, :class => 'text_area' ,:cols=>25 ,:rows=>5 %>
