@@ -84,20 +84,20 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3032ba', end
           <li class="active" ><a href="#"><b style="color:blue">Home</b></a></li>
           <% Category.where(:parent_id => nil).all.each do |category|  %>     
           <li class="dropdown">
-            <%#= link_to category.name ,category_path(category) %>
-            
-            <a class="dropdown-toggle"
+            <%#= link_to category.name ,category_path(category) %>           
+                <a class="dropdown-toggle"
                data-toggle="dropdown"
                href="/categories/<%=category.id%>">
                  <%= category.name %>
               </a>
+           
             <ul class="dropdown-menu">
               <% Category.find_all_by_parent_id(category.id).each do |sub_cat| %>
                 <li class="dropdown-submenu">
                   <%=link_to sub_cat.name , category_path(sub_cat) %>
                     <ul class="dropdown-menu">
                       <% Brand.all.sort.each do |brand| %>
-                      <li><%=link_to brand.name ,brands_path %></li>
+                      <li><%=link_to brand.name ,brand_path(brand.name) %></li>
                       <%end%>
                     </ul>
                 </li>
@@ -156,6 +156,26 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3032ba', end
         </div>
       </div> 
     </div> 
+
+    <div class="navbar navbar-static-bottom">
+      <div class="navbar-inner" >
+        <div class="container">
+         <!--  <a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a> -->
+          <!-- <a class="brand" href="#">Popular Brands</a>  -->         
+          <div class="container nav-collapse">
+            <ul class="nav" style="float:left">
+              <% Brand.all.collect do |brand| %>
+              <li><%= link_to image_tag(brand.logo.url), brand_path(brand.name) ,:height=>30,:width=>50 %></li>
+              <% end %>              
+            </ul>        
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
     <!-- Javascripts
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
