@@ -1,6 +1,6 @@
 <h2>Edit <%= resource_name.to_s.humanize %></h2>
 
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put ,:class => 'form-horizontal'}) do |f| %>
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put ,:class => 'form-horizontal',:multipart => true}) do |f| %>
   <%= devise_error_messages! %>
   <div class="control-group">
     <%= f.label :email, :class => 'control-label' %>
@@ -26,7 +26,19 @@
    <div class="controls">
     <%= f.password_field :current_password ,:class => 'password_field'%><br /><i>(we need your current password to confirm your changes)</i>
    </div>
-  </div>    
+  </div> 
+  <!--  <div class="control-group">
+   <%#= f.label :admin ,:class => 'control-label'%>
+   <div class="controls">
+    <%#= f.check_box :admin ,:class => 'check_box'%>
+   </div>
+  </div>   --> 
+  <div class="control-group">
+   <%= f.label :photo ,:class => 'control-label'%>
+   <div class="controls">
+    <%= f.file_field :avatar %>
+   </div>
+  </div>     
    <div class="form-actions">
     <%= f.submit "Update", :class => 'btn btn-primary' %>    
   </div>

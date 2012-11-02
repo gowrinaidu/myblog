@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= content_for?(:title) ? yield(:title) : "Blog" %></title>
+    <%= csrf_meta_tags %>
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+
+    <%= stylesheet_link_tag "application", :media => "all" %>
+
+    <!-- For third-generation iPad with high-resolution Retina display: -->
+    <!-- Size should be 144 x 144 pixels -->
+    <%= favicon_link_tag 'images/apple-touch-icon-144x144-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '144x144' %>
+
+    <!-- For iPhone with high-resolution Retina display: -->
+    <!-- Size should be 114 x 114 pixels -->
+    <%= favicon_link_tag 'images/apple-touch-icon-114x114-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '114x114' %>
+
+    <!-- For first- and second-generation iPad: -->
+    <!-- Size should be 72 x 72 pixels -->
+    <%= favicon_link_tag 'images/apple-touch-icon-72x72-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '72x72' %>
+
+    <!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
+    <!-- Size should be 57 x 57 pixels -->
+    <%= favicon_link_tag 'images/apple-touch-icon-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png' %>
+
+    <!-- For all other devices -->
+    <!-- Size should be 32 x 32 pixels -->
+    <%= favicon_link_tag 'images/favicon.ico', :rel => 'shortcut icon' %>
+    <style type="text/css">
+    #myheader-inner{
+     background: #3032ba; /* Old browsers */
+background: -moz-linear-gradient(top, #3032ba 0%, #335ace 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#3032ba), color-stop(100%,#335ace)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, #3032ba 0%,#335ace 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, #3032ba 0%,#335ace 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top, #3032ba 0%,#335ace 100%); /* IE10+ */
+background: linear-gradient(to bottom, #3032ba 0%,#335ace 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3032ba', endColorstr='#335ace',GradientType=0 ); /* IE6-9 */
+    }
+    </style>
+  </head>
+  <body>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner" >
+        <div class="container">
+          <a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="#">Blog</a>
+          <div class="container nav-collapse">
+            <ul class="nav" style="float:left">
+               <!--  <li><%#= link_to "Link1", "/path1"  %></li>
+              <li><%#= link_to "Link2", "/path2"  %></li>
+              <li><%#= link_to "Link3", "/path3"  %></li> -->
+            </ul>
+            <ul class="nav" style="float:right">            
+        <% if user_signed_in? %>  
+          <!-- <li><%#=link_to image_tag(current_user.avatar, :height=>50 ,:width=>50),edit_user_registration_path  %></li>  -->            
+          <li> <%= link_to current_user.email, edit_user_registration_path %></li>
+          <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
+        <% else %>
+          <li><%= link_to "Sign up", new_user_registration_path %> </li>
+          <li><%= link_to "Login", new_user_session_path %></li>
+            <% end %>
+            </ul> 
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+    <br /><br />
+    <div class="navbar">
+      <div class="navbar-inner" id="myheader-inner" >
+        <a class="brand" href="#">&nbsp;&nbsp;</a>
+        <ul class="nav .nav-pills">
+          <li class="active" ><a href="#"><b style="color:blue">Home</b></a></li>
+          <% Category.where(:parent_id => nil).all.each do |category|  %>     
+          <li class="dropdown">
+            <%#= link_to category.name ,category_path(category) %>
+            
+            <a class="dropdown-toggle"
+               data-toggle="dropdown"
+               href="/categories/<%=category.id%>">
+                 <%= category.name %>
+              </a>
+            <ul class="dropdown-menu">
+              <% Category.find_all_by_parent_id(category.id).each do |sub_cat| %>
+                <li class="dropdown-submenu">
+                  <%=link_to sub_cat.name , category_path(sub_cat) %>
+                    <ul class="dropdown-menu">
+                      <% Brand.all.sort.each do |brand| %>
+                      <li><%=link_to brand.name ,brands_path %></li>
+                      <%end%>
+                    </ul>
+                </li>
+              <%end%>              
+            </ul>   
+
+          </li>
+          <% end %>  
+          <li class="dropdown">
+          </li>      
+        </ul>
+      </div>
+    </div>
+
+   
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span2">
+         
+        </div>
+        <div class="span8">
+            <div id="myCarousel" class="carousel slide">  
+              <!-- Carousel items -->  
+              <div class="carousel-inner">  
+                <div class="active item"> <%= image_tag "/assets/image9.jpg" ,:height=>100 ,:width=>1000 %></div> 
+                 <% for i in 10..16 %>
+                  <div class="item">                              
+                   <%= image_tag "/assets/image#{i}.jpg" ,:height=>100 ,:width=>1000 %>
+                  </div>
+                 <% end %>
+                </div>  
+              <!-- Carousel nav -->  
+              <a class="carousel-control left" href="#myCarousel" data-slide="prev">‹</a>  
+              <a class="carousel-control right" href="#myCarousel" data-slide="next">›</a>  
+            </div>
+
+            <ul class="thumbnails">
+              <% @products.each do |product| %>
+              <li class="span3">
+                <div class="thumbnail">
+                  <%=image_tag product.images[0].photo ,:height=>200 , :width=>300 if product.images.length > 0 %>
+                  <!-- <img src="http://placehold.it/300x200" alt=""> -->
+                  <h3><%=product.name %></h3>
+                  <h5><%= product.brand.name %></h5>
+                  <p><%= truncate(product.description, :length => 100 ) %><h4 style="color:blue;"><%= link_to "More.." ,product_path(product) %></h4></p>
+                  <!-- <p><%#= product.category.name %><br><%#= product.description ,:truncate=>20 %></p> -->
+                </div>
+              </li>
+              <% end %>
+            </ul>
+
+           <%= yield %>
+        </div>
+        <div class="span2">
+          
+        </div>
+      </div> 
+    </div> 
+    <!-- Javascripts
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <%= javascript_include_tag "application" %>
+
+  </body>
+</html>

@@ -15,3 +15,6 @@
 //= require twitter/bootstrap
 //= require_tree .
 //= require jquery.nested-fields
+$(document).ready(function(e) {
+  $('FORM').nestedFields();
+});

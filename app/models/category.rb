@@ -9,5 +9,5 @@ class Category < ActiveRecord::Base
   def self.nested_dropdown
     categories = self.order(:lft).collect {|row| ["#{'-- '*row.depth} #{row.name}",row.id]}
   end
-  
+ 
 end

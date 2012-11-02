@@ -1,9 +1,12 @@
 class ProductsController < ApplicationController
+	before_filter :authenticate_user!	
+	before_filter :custom_method, :only => [:new, :edit, :create, :destroy]
 	def index		                            
-          @products = Product.all                                      
+          @products = Product.all     
+          render :layout=>"welcome"
 	end
 	def new
-		@product = Product.new
+		@product = Product.new 
 	end
 	def create
 		@product = Product.new(params[:product])
@@ -18,7 +21,7 @@ class ProductsController < ApplicationController
 	end
 	def update
 		@product = Product.find(params[:id])
-		if @Product.update_attributes(params[:product])
+		if @product.update_attributes(params[:product])
 			redirect_to products_path
 		else
 			render :action=>"edit"
@@ -26,5 +29,10 @@ class ProductsController < ApplicationController
 	end
 	def show
 		@product = Product.find(params[:id])		
+	end
+	def destroy 
+		@product = Product.find(params[:id])
+    	@product.destroy
+		redirect_to products_path
 	end
 end

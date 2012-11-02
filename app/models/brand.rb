@@ -8,4 +8,5 @@ class Brand < ActiveRecord::Base
    # before_save do
    #   self.logo = self.logo.resize "60x60"
    # end
+  
 end
