@@ -9,7 +9,7 @@
   <dt><strong><%= model_class.human_attribute_name(:description) %>:</strong></dt>
   <dd><%= @brand.description %></dd>
   <dt><strong><%= model_class.human_attribute_name(:logo) %>:</strong></dt>
-  <dd><%= image_tag @brand.logo.url ,:html=>{:class=>"img-rounded"}%></dd>
+  <dd><%= image_tag @brand.logo.url(:thumb) ,:html=>{:class=>"img-rounded"}%></dd>
  
 </dl>
 

@@ -22,7 +22,7 @@
         <td><%= link_to brand.id, brand_path(brand) %></td>
         <td><%= brand.name %></td>
         <td><%= brand.description %></td>
-        <td><%= image_tag brand.logo.url%></td>       
+        <td><%= image_tag brand.logo.url(:thumb)%></td>       
         <!-- <td><%#= brand.logo_updated_at %></td>
         <td><%#=l brand.created_at %></td> -->
          <% if current_user.admin? %>

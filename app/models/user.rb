@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
 
   validates :email , :presence => true, :uniqueness => true
   has_and_belongs_to_many :categories
-  has_attached_file :avatar,  :styles => { :medium=>"60x60#" },:whiny => false
+  has_attached_file :avatar,  :styles => { :medium => "100x100>", :thumb => "60x60#" }
 
   
 end

@@ -1,0 +1,17 @@
+
+<div class="container">
+	 <% @pages.each do |product| %>		
+	   	<ul style="list-style-type:none;float:left;border:3px solid gray">
+		      <li>
+		      	<ul style="list-style-type:none;">		      		
+		      		<li><%= image_tag product.images[0].photo(:medium) %></li>
+		      		<li>&nbsp;</li>
+		      		<li><%= truncate(product.name, :length => 20 ) %></li>
+		      		<li>Brand:&nbsp;<%= product.brand.name %></li>
+		      		<li>Price:&nbsp;<%= product.price %></li>
+		      	</ul>
+		      </li>
+		    </ul>
+		<% end %>
+    
+  </div>

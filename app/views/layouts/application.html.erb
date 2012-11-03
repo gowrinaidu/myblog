@@ -71,7 +71,8 @@
         <a class="brand" href="#">&nbsp;&nbsp;</a>
         <ul class="nav .nav-pills">
           <li class="active"><a href="#">Home</a></li>
-          <% Category.where(:parent_id => nil).all.each do |category|  %>     
+          <%#= debug @page_products.inspect %>
+          <% Category.each_with_level(Category.root.self_and_siblings) do |category, level|  %>     
           <li class="dropdown">
             <%#= link_to category.name ,category_path(category) %>
             <a class="dropdown-toggle"
@@ -80,16 +81,19 @@
                 <%= category.name %>               
               </a>
             <ul class="dropdown-menu">
-              <% Category.find_all_by_parent_id(category.id).each do |sub_cat| %>
+              <% category.descendants.each do |sub_cat| %>
                 <li class="dropdown-submenu">
-                  <%=link_to sub_cat.name , category_path(sub_cat) %>
+                  <%=link_to sub_cat.name %>
                     <ul class="dropdown-menu">
-                      <% Brand.all.sort.each do |brand| %>
-                      <li><%=link_to brand.name ,brands_path %></li>
+                      <% brand_categories = @page_brands_categories.collect{|x| x.brand_id if x.category_id == category.id }.compact %>                      
+                      <% @page_brands.each do |brand| %>
+                        <% if brand_categories.include?(brand.id)  %>
+                        <li><%=link_to brand.name ,brands_path  %></li>
+                        <% end %>
                       <%end%>
                     </ul>
-                </li>
-              <%end%>              
+                </li> 
+              <% end %>                       
             </ul>   
 
           </li>

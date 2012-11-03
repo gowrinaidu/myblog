@@ -1,5 +1,7 @@
 Blog::Application.routes.draw do
 
+  get "pages/index"
+
   ActiveAdmin.routes(self)
 
   devise_for :admin_users, ActiveAdmin::Devise.config
@@ -25,6 +27,7 @@ Blog::Application.routes.draw do
   resources :categories
   resources :products
   resources :images
+  resources :pages
 
   # Sample resource route with options:
   #   resources :products do
@@ -61,7 +64,7 @@ Blog::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-   root :to => 'products#index'
+   root :to => 'pages#index'
 
   # See how all your routes lay out with "rake routes"
 

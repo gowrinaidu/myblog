@@ -3,7 +3,6 @@ class ProductsController < ApplicationController
 	before_filter :custom_method, :only => [:new, :edit, :create, :destroy]
 	def index		                            
           @products = Product.all     
-          render :layout=>"welcome"
 	end
 	def new
 		@product = Product.new 
